@@ -1,4 +1,4 @@
-package com.github.itishermann.ollamacommitsummarizer.toolWindow
+package me.itishermann.ollamacommitsummarizer.toolWindow
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.thisLogger
@@ -8,8 +8,8 @@ import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.content.ContentFactory
-import com.github.itishermann.ollamacommitsummarizer.MyBundle
-import com.github.itishermann.ollamacommitsummarizer.services.MyProjectService
+import me.itishermann.ollamacommitsummarizer.MyBundle
+import me.itishermann.ollamacommitsummarizer.services.MyProjectService
 import javax.swing.JButton
 
 

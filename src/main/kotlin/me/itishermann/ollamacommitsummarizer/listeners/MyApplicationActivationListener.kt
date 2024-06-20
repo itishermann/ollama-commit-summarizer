@@ -1,4 +1,4 @@
-package com.github.itishermann.ollamacommitsummarizer.listeners
+package me.itishermann.ollamacommitsummarizer.listeners
 
 import com.intellij.openapi.application.ApplicationActivationListener
 import com.intellij.openapi.diagnostic.thisLogger

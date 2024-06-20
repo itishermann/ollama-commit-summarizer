@@ -1,4 +1,4 @@
-package com.github.itishermann.ollamacommitsummarizer
+package me.itishermann.ollamacommitsummarizer
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
