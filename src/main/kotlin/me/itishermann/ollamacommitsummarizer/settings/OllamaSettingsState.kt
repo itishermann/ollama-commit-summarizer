@@ -19,7 +19,7 @@ internal class OllamaSettingsState
         var serverUrl: @NotNull @NonNls String? = "http://localhost:11434"
         var userName: @Nullable @NonNls String? = null
         var password: @Nullable @NonNls String? = null
-        var modelName: @NotNull @NonNls String? = "codegemma:2b"
+        var modelName: @NotNull @NonNls String? = null
         var prompt: @NotNull @NonNls String? = """
             It is the code changes gives by unified view, changed file number is {{fileChangeCount}}:
             {{gitDiff}}

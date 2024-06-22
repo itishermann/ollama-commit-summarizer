@@ -24,14 +24,14 @@ internal class OllamaSettingsConfigurable: Configurable {
     }
 
     override fun isModified(): Boolean {
-            val state: OllamaSettingsState.State =
-                Objects.requireNonNull(OllamaSettingsState.instance.state)
-            return !ollamaSettingsComponent.serverUrl.equals(state.serverUrl) ||
-                    !ollamaSettingsComponent.userName.equals(state.userName) ||
-                    !ollamaSettingsComponent.password.equals(state.password) ||
-                    !ollamaSettingsComponent.modelName.equals(state.modelName) ||
-                    !ollamaSettingsComponent.prompt.equals(state.prompt)
-        }
+        val state: OllamaSettingsState.State =
+            Objects.requireNonNull(OllamaSettingsState.instance.state)
+        return !ollamaSettingsComponent.serverUrl.equals(state.serverUrl) ||
+                !ollamaSettingsComponent.userName.equals(state.userName) ||
+                !ollamaSettingsComponent.password.equals(state.password) ||
+                !ollamaSettingsComponent.modelName.equals(state.modelName) ||
+                !ollamaSettingsComponent.prompt.equals(state.prompt)
+    }
 
     override fun apply() {
         val state: OllamaSettingsState.State =

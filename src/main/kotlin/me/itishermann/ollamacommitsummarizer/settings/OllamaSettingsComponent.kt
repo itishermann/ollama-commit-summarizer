@@ -36,14 +36,16 @@ class OllamaSettingsComponent {
             updateModelNames()
         }
         modelNameComboBox.isVisible = false
+        modelNameComboBox.addItemListener { event ->
+            if (event.stateChange == java.awt.event.ItemEvent.SELECTED) {
+                val selectedItem = event.item.toString()
+                println("Selected item: $selectedItem")
+                modelName = selectedItem
+            }
+        }
         refreshModelsButton.isEnabled = false
         promptText.margin = JBUI.insets(5)
-        val promptPanel: JPanel = UI.PanelFactory.panel(promptText).withComment("<p>Plugin is based on Ollama API. Please download" +
-                " <a href=\"https://ollama.ai/\">Ollama</a> firstly.</p>" +
-                "<br/>" +
-                "<p> Parameters can be used in prompt: </p> " +
-                "<p> {{fileChangeCount}}: number of changed files</p>" +
-                "<p> {{gitDiff}}: changed code by git unified view</p>")
+        val promptPanel: JPanel = UI.PanelFactory.panel(promptText).withComment("<p>Plugin is based on <a href=\"https://ollama.ai/\">Ollama</a>")
             .createPanel()
         panel = FormBuilder.createFormBuilder()
             .addLabeledComponent(JBLabel("Server URL:"), serverUrlText, 1, false)
@@ -58,7 +60,7 @@ class OllamaSettingsComponent {
             .panel
     }
 
-    fun checkApiReachability() {
+    private fun checkApiReachability() {
         loadingLabel.text = "Checking API..."
         if(serverUrl.isNullOrEmpty()) {
             reachabilityStatusLabel.text = "API is not reachable, server URL is empty"
@@ -66,23 +68,28 @@ class OllamaSettingsComponent {
             return
         }
         SwingUtilities.invokeLater {
-            val ollamaAPI = OllamaAPI(serverUrl)
-            if(!userName.isNullOrEmpty() && !password.isNullOrEmpty()) {
-                ollamaAPI.setBasicAuth(userName!!, password!!)
-            }
-            // Comment before deploying
-            ollamaAPI.setVerbose(true)
-            OllamaClientManager.setOllamaClient(ollamaAPI)
-            val isOllamaServerReachable = ollamaAPI.ping()
-            if (isOllamaServerReachable) {
-                reachabilityStatusLabel.text = "API is reachable"
-                refreshModelsButton.isEnabled = true
-                updateModelNames()
-            } else {
+            try {
+                val ollamaAPI = OllamaAPI(serverUrl)
+                if(!userName.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                    ollamaAPI.setBasicAuth(userName!!, password!!)
+                }
+                // Comment before deploying
+                ollamaAPI.setVerbose(true)
+                OllamaClientManager.setOllamaClient(ollamaAPI)
+                val isOllamaServerReachable = ollamaAPI.ping()
+                if (isOllamaServerReachable) {
+                    reachabilityStatusLabel.text = "API is reachable"
+                    refreshModelsButton.isEnabled = true
+                    updateModelNames()
+                } else {
+                    reachabilityStatusLabel.text = "API is not reachable"
+                    refreshModelsButton.isEnabled = false
+                }
+                loadingLabel.text = ""
+            } catch (e: Exception){
+                loadingLabel.text = "An error occurred: ${e.message}"
                 reachabilityStatusLabel.text = "API is not reachable"
-                refreshModelsButton.isEnabled = false
             }
-            loadingLabel.text = ""
         }
     }
 
@@ -109,12 +116,14 @@ class OllamaSettingsComponent {
         // Set the first model as selected
         if(modelNames.isNotEmpty()) {
             modelNameComboBox.isVisible = true
-            modelName = modelNames[0]
+            if(modelName.isNullOrEmpty()){
+               modelName = modelNames[0]
+            }
         } else {
             modelNameComboBox.isVisible = false
             loadingModelsLabel.text = "No models found"
         }
-        loadingModelsLabel.text = "Models list successfully"
+        loadingModelsLabel.text = "Models fetched successfully"
     }
 
     val preferredFocusedComponent: JComponent
@@ -145,7 +154,7 @@ class OllamaSettingsComponent {
     var modelName: String?
         get() = modelNameComboBox.item as String? ?: ""
         set(newText) {
-            modelNameComboBox.item = newText
+            modelNameComboBox.selectedItem = newText
         }
 
     @get:NotNull
