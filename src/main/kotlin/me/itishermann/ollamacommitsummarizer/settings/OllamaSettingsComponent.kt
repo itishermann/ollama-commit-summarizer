@@ -1,5 +1,6 @@
 package me.itishermann.ollamacommitsummarizer.settings
 
+import com.intellij.openapi.components.service
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBTextArea
@@ -8,7 +9,7 @@ import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.JBUI
 import com.intellij.util.ui.UI
 import io.github.amithkoujalgi.ollama4j.core.OllamaAPI
-import me.itishermann.ollamacommitsummarizer.OllamaClientManager
+import me.itishermann.ollamacommitsummarizer.services.OllamaService
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import javax.swing.*
@@ -39,13 +40,19 @@ class OllamaSettingsComponent {
         modelNameComboBox.addItemListener { event ->
             if (event.stateChange == java.awt.event.ItemEvent.SELECTED) {
                 val selectedItem = event.item.toString()
-                println("Selected item: $selectedItem")
                 modelName = selectedItem
             }
         }
         refreshModelsButton.isEnabled = false
         promptText.margin = JBUI.insets(5)
-        val promptPanel: JPanel = UI.PanelFactory.panel(promptText).withComment("<p>Plugin is based on <a href=\"https://ollama.ai/\">Ollama</a>")
+        val promptPanel: JPanel = UI.PanelFactory.panel(promptText).withComment("""
+            <p>Plugin is based on <a href="https://ollama.ai/">Ollama</a></p>
+            <p>The following variables are available for use in the prompt:</p>
+            <ul>
+                <li>{{gitDiff}}: The git diff of the changes</li>
+                <li>{{commitMessage}}: The commit message</li>
+            </ul>
+        """.trimIndent())
             .createPanel()
         panel = FormBuilder.createFormBuilder()
             .addLabeledComponent(JBLabel("Server URL:"), serverUrlText, 1, false)
@@ -70,12 +77,14 @@ class OllamaSettingsComponent {
         SwingUtilities.invokeLater {
             try {
                 val ollamaAPI = OllamaAPI(serverUrl)
+                ollamaAPI.setRequestTimeoutSeconds(60*60) // 1 hour
                 if(!userName.isNullOrEmpty() && !password.isNullOrEmpty()) {
                     ollamaAPI.setBasicAuth(userName!!, password!!)
                 }
                 // Comment before deploying
-                ollamaAPI.setVerbose(true)
-                OllamaClientManager.setOllamaClient(ollamaAPI)
+                // ollamaAPI.setVerbose(true)
+                val ollamaService = service<OllamaService>()
+                ollamaService.setOllamaClient(ollamaAPI)
                 val isOllamaServerReachable = ollamaAPI.ping()
                 if (isOllamaServerReachable) {
                     reachabilityStatusLabel.text = "API is reachable"
@@ -97,7 +106,8 @@ class OllamaSettingsComponent {
         if(serverUrl.isNullOrEmpty()) {
             return emptyList<String>()
         }
-        val ollamaAPI = OllamaClientManager.getOllamaClient()
+        val ollamaService = service<OllamaService>()
+        val ollamaAPI = ollamaService.getOllamaClient()
         try {
             val modelList = ollamaAPI.listModels()
             loadingModelsLabel.text = "Models fetched successfully"
@@ -152,7 +162,7 @@ class OllamaSettingsComponent {
 
     @get:NotNull
     var modelName: String?
-        get() = modelNameComboBox.item as String? ?: ""
+        get() = modelNameComboBox.item ?: ""
         set(newText) {
             modelNameComboBox.selectedItem = newText
         }

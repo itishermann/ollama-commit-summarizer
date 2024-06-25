@@ -6,8 +6,6 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable
                 parentId="tools"
@@ -17,10 +15,23 @@
         <applicationService
                 serviceImplementation="me.itishermann.ollamacommitsummarizer.settings.OllamaSettingsState"
         />
-        <toolWindow factoryClass="me.itishermann.ollamacommitsummarizer.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <applicationService
+                serviceInterface="me.itishermann.ollamacommitsummarizer.interfaces.AiServiceInterface"
+                serviceImplementation="me.itishermann.ollamacommitsummarizer.services.OllamaService"
+        />
+        <notificationGroup id="me.itishermann.ollamacommitsummarizer.default" displayType="BALLOON"/>
     </extensions>
 
+    <actions>
+        <action id="Commit.Button" class="me.itishermann.ollamacommitsummarizer.actions.GenerateCommitAction"
+                text="Generate Commit"
+                description="Generate commit message"
+                icon="com.intellij.icons.ExpUiIcons.General.Refresh">
+            <add-to-group group-id="Vcs.MessageActionGroup" anchor="last"/>
+        </action>
+    </actions>
+
     <applicationListeners>
-        <listener class="me.itishermann.ollamacommitsummarizer.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="me.itishermann.ollamacommitsummarizer.listeners.ActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>

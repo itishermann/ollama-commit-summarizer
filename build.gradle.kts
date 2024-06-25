@@ -23,10 +23,8 @@ repositories {
 
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
-//    implementation(libs.exampleLibrary)
-    val ollama4jVersion = "1.0.73"
-
-    implementation("io.github.amithkoujalgi:ollama4j:$ollama4jVersion")
+    implementation(libs.ollama4j)
+    implementation(libs.javaDiffUtils)
 }
 
 // Set the JVM language level used to build the project.

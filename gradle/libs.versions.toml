@@ -1,6 +1,7 @@
 [versions]
 # libraries
-exampleLibrary = "24.1.0"
+ollama4j = "1.0.73"
+javaDiffUtils = "4.12"
 
 # plugins
 kotlin = "1.9.24"
@@ -10,7 +11,9 @@ qodana = "2024.1.5"
 kover = "0.8.1"
 
 [libraries]
-exampleLibrary = { group = "com.example", name = "exampleLibrary", version.ref = "exampleLibrary" }
+ollama4j = { group = "io.github.amithkoujalgi", name = "ollama4j", version.ref = "ollama4j" }
+javaDiffUtils = { group = "io.github.java-diff-utils", name = "java-diff-utils", version.ref = "javaDiffUtils" }
+
 
 [plugins]
 changelog = { id = "org.jetbrains.changelog", version.ref = "changelog" }

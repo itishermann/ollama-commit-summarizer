@@ -19,19 +19,12 @@ internal class OllamaSettingsState
         var serverUrl: @NotNull @NonNls String? = "http://localhost:11434"
         var userName: @Nullable @NonNls String? = null
         var password: @Nullable @NonNls String? = null
-        var modelName: @NotNull @NonNls String? = null
+        var modelName: @NotNull @NonNls String? = "llama3:8b"
         var prompt: @NotNull @NonNls String? = """
-            It is the code changes gives by unified view, changed file number is {{fileChangeCount}}:
-            {{gitDiff}}
-            Please generate commit message with template:
-                        
-            [Feature/Bugfix]: A brief summary of the changes in this commit (max 50 characters)
-                        
-            Detailed description of the changes:
-            - Description of change #1 (max. 72 characters per line, no period at the end)
-            - Description of change #2 (max. 72 characters per line, no period at the end)
-            - ... and so on for as many changes as necessary
-            """.trimIndent()
+            From the following git diff, generate a commit message respecting the Conventional Commits specification.
+            Your response strictly have to be only the commit message.
+            Here is the git diff: {{gitDiff}}
+        """.trimIndent()
     }
 
     private var myState: State = State()
