@@ -26,7 +26,7 @@
         <action id="Commit.Button" class="me.itishermann.ollamacommitsummarizer.actions.GenerateCommitAction"
                 text="Generate Commit"
                 description="Generate commit message"
-                icon="com.intellij.icons.ExpUiIcons.General.Refresh">
+                icon="com.intellij.icons.AllIcons.Actions.EditScheme">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="last"/>
         </action>
     </actions>

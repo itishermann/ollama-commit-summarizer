@@ -38,7 +38,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         if (commitPanel == null || processing) {
             return
         }
-        ProgressManager.getInstance().run(object : Task.Backgroundable(event.project, "Generating commit", false) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(event.project, "Ollama commit summarizer", false) {
             override fun run(@NotNull indicator: ProgressIndicator) {
                 indicator.text = "Generating commit message"
                 processing = true
@@ -48,6 +48,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
     }
 
     private fun handleEvent(e: AnActionEvent, commitPanel: CommitMessageI, indicator: ProgressIndicator) {
+        indicator.text = "Building prompt"
         val project = checkNotNull(e.project)
         // get included changes
         val abstractCommitWorkflowHandler =
@@ -70,16 +71,20 @@ class GenerateCommitAction: AnAction(), DumbAware {
     }
 
     private fun generateCommitMessage(prompt: String, commitPanel: CommitMessageI, indicator: ProgressIndicator) {
+        indicator.text = "Preparing inference"
         val client = service<OllamaService>().getOllamaClient()
         val modelName = OllamaSettingsState.instance.state.modelName
         val streamHandler = OllamaStreamHandler { s: String? ->
             ApplicationManager.getApplication().invokeLater {
+                indicator.text = "Streaming response"
                 indicator.fraction += 0.05
                 commitPanel.setCommitMessage(s)
             }
         }
+        indicator.text = "Setting temperature and top-k"
         val options = OptionsBuilder().setTemperature(1.5f).setTopP(0.9f).setTopK(40).build()
         try {
+            indicator.text = "Inferring"
             client.generate(modelName, prompt, options, streamHandler)
             processing = false
             Notifications.Bus.notify(
