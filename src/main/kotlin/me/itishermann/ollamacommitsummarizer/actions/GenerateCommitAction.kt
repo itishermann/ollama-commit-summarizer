@@ -38,7 +38,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         if (commitPanel == null || processing) {
             return
         }
-        ProgressManager.getInstance().run(object : Task.Backgroundable(event.project, "Ollama commit summarizer", false) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(event.project, "Generating commit message", false) {
             override fun run(@NotNull indicator: ProgressIndicator) {
                 indicator.text = "Generating commit message"
                 processing = true
@@ -60,6 +60,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
             val prompt = buildPrompt(includedChanges, baseDir!!)
             generateCommitMessage(prompt, commitPanel, indicator)
         } catch (e: NoChangeToCommitException) {
+            processing = false
             Notifications.Bus.notify(
                 Notification(
                     "me.itishermann.ollamacommitsummarizer.default",
@@ -111,6 +112,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
     private fun buildPrompt(includedChanges: List<Change>, baseDir: String): String {
         val totalUnifiedDiffs: MutableList<String> = ArrayList()
         if(includedChanges.isEmpty()) {
+            processing = false
             throw NoChangeToCommitException("No changes to commit")
         }
         for (change in includedChanges) {
