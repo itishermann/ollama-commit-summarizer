@@ -4,38 +4,53 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties) and [pluginName](./gradle.properties), as well as the [id](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `MARKETPLACE_ID` in the above README badges. You can obtain it once the plugin is published to the marketplace.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
+The Ollama Commit Summarizer Plugin enhances your development workflow by automatically generating meaningful and context-aware commit messages. Powered by Ollama's advanced language model, this plugin analyzes your code changes and provides precise, human-readable commit messages that save time and ensure consistency across your projects.
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+## Features
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+- **Automated Commit Messages:** Generate descriptive commit messages based on code changes. Supports various commit styles (e.g., Conventional Commits, Gitmoji).
+- **Context-Aware Analysis:** Understands the context of your code changes for accurate message generation. Incorporates relevant code snippets and file names for clarity.
+- **Customizable Templates:** Customize commit message templates to fit your team's standards. Easily toggle between different templates as needed.
+- **Integration with Git:** Seamless integration with Git and popular VCS tools. Compatible with GitHub, GitLab, Bitbucket, and more.
+- **Interactive Suggestions:** Provides multiple commit message suggestions for you to choose from. Edit and refine suggested messages before committing.
+- **Language Support:** Supports multiple programming languages and frameworks. Continually updated to recognize new languages and libraries.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
-<!-- Plugin description end -->
+## Benefits
+
+- **Increased Productivity:** Save time by automating the commit message writing process.
+- **Consistency:** Ensure commit messages are uniform and adhere to your project's guidelines.
+- **Improved Collaboration:** Facilitate better collaboration and understanding among team members with clear and descriptive commit messages.
+- **Enhanced Workflow:** Smooth integration with your existing development tools and workflows.
 
 ## Installation
 
-- Using the IDE built-in plugin system:
-  
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "ollama-commit-summarizer"</kbd> >
-  <kbd>Install</kbd>
-  
-- Manually:
+1. Navigate to the JetBrains Marketplace.
+2. Search for "Ollama Commit Summarizer."
+3. Click "Install" and follow the prompts to add the plugin to your IDE.
+4. Configure the plugin settings to match your preferences and start generating commit messages instantly.
 
-  Download the [latest release](https://github.com/itishermann/ollama-commit-summarizer/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+## Requirements
 
+- Compatible with IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, and other JetBrains IDEs.
+- Requires a valid Git installation and configured repository.
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository from [GitHub](https://github.com/itishermann/ollama-commit-summarizer).
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-branch`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Enhance your development process with the Ollama Commit Summarizer Plugin and experience the future of automated commit messaging!
 
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
