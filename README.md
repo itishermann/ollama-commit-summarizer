@@ -22,6 +22,12 @@ The Ollama Commit Summarizer Plugin enhances your development workflow by automa
 - **Improved Collaboration:** Facilitate better collaboration and understanding among team members with clear and descriptive commit messages.
 - **Enhanced Workflow:** Smooth integration with your existing development tools and workflows.
 
+## Requirements
+
+- Compatible with IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, and other JetBrains IDEs.
+- Requires a valid Git installation and configured repository.
+- Ollama must be installed and running locally or remotely. Visit [Ollama][ollama-github-url] to learn more.
+
 ## Installation
 
 1. Navigate to the JetBrains Marketplace.
@@ -29,16 +35,11 @@ The Ollama Commit Summarizer Plugin enhances your development workflow by automa
 3. Click "Install" and follow the prompts to add the plugin to your IDE.
 4. Configure the plugin settings to match your preferences and start generating commit messages instantly.
 
-## Requirements
-
-- Compatible with IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, and other JetBrains IDEs.
-- Requires a valid Git installation and configured repository.
-
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
-1. Fork the repository from [GitHub](https://github.com/itishermann/ollama-commit-summarizer).
+1. Fork the repository from [GitHub][repo-url].
 2. Create a new branch (`git checkout -b feature-branch`).
 3. Make your changes and commit them (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
@@ -57,3 +58,5 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
 [docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+[repo-url]: https://github.com/itishermann/ollama-commit-summarizer
+[ollama-github-url]:https://github.com/ollama/ollama
