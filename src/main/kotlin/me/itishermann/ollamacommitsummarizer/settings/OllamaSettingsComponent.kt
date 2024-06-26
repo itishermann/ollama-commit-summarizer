@@ -50,7 +50,7 @@ class OllamaSettingsComponent {
             <p>The following variables are available for use in the prompt:</p>
             <ul>
                 <li>{{gitDiff}}: The git diff of the changes</li>
-                <li>{{commitMessage}}: The commit message</li>
+                <li>{{fileCount}}: The number of files changed</li>
             </ul>
         """.trimIndent())
             .createPanel()
