@@ -19,7 +19,7 @@ internal class OllamaSettingsState
         var serverUrl: @NotNull @NonNls String? = "http://localhost:11434"
         var userName: @Nullable @NonNls String? = null
         var password: @Nullable @NonNls String? = null
-        var modelName: @NotNull @NonNls String? = "llama3:8b"
+        var modelName: @NotNull @NonNls String? = "mistral:7b"
         var prompt: @NotNull @NonNls String? = """
             From the following git diff, generate a commit message respecting the Conventional Commits specification.
             Your response strictly have to be only the commit message.

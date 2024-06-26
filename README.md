@@ -1,8 +1,8 @@
 # ollama-commit-summarizer
 
 ![Build](https://github.com/itishermann/ollama-commit-summarizer/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/24734.svg)](https://plugins.jetbrains.com/plugin/24734)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/24734.svg)](https://plugins.jetbrains.com/plugin/24734)
 <!-- Plugin description -->
 The Ollama Commit Summarizer Plugin enhances your development workflow by automatically generating meaningful and context-aware commit messages. Powered by Ollama's advanced language model, this plugin analyzes your code changes and provides precise, human-readable commit messages that save time and ensure consistency across your projects.
 
@@ -26,7 +26,7 @@ The Ollama Commit Summarizer Plugin enhances your development workflow by automa
 
 - Compatible with IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, and other JetBrains IDEs.
 - Requires a valid Git installation and configured repository.
-- Ollama must be installed and running locally or remotely. Visit [Ollama][ollama-github-url] to learn more.
+- Ollama must be installed and running locally or remotely. Visit [Ollama](https://github.com/ollama/ollama) to learn more.
 
 ## Installation
 
@@ -39,11 +39,18 @@ The Ollama Commit Summarizer Plugin enhances your development workflow by automa
 
 Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
 
-1. Fork the repository from [GitHub][repo-url].
+1. Fork the repository from [GitHub](https://github.com/itishermann/ollama-commit-summarizer).
 2. Create a new branch (`git checkout -b feature-branch`).
 3. Make your changes and commit them (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new Pull Request.
+<!-- Plugin description end -->
+
+---
+
+Enhance your development process with the Ollama Commit Summarizer Plugin and experience the future of commit message automation!
+
+---
 
 ## License
 
@@ -51,9 +58,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Enhance your development process with the Ollama Commit Summarizer Plugin and experience the future of automated commit messaging!
-<!-- Plugin description end -->
----
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
