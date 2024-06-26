@@ -3,72 +3,7 @@
     <id>me.itishermann.ollamacommitsummarizer</id>
     <name>Ollama Commit Summarizer</name>
     <vendor>itishermann</vendor>
-    <description><![CDATA[
-<p><strong>Ollama Commit Summarizer Plugin</strong></p>
-<p><strong>Overview:</strong>
-The Ollama Commit Summarizer Plugin enhances your development workflow by automatically generating meaningful and context-aware commit messages. Powered by Ollama&#39;s advanced language model, this plugin analyzes your code changes and provides precise, human-readable commit messages that save time and ensure consistency across your projects.</p>
-<p><strong>Features:</strong></p>
-<ol>
-<li><p><strong>Automated Commit Messages:</strong></p>
-<ul>
-<li>Generate descriptive commit messages based on code changes.</li>
-<li>Supports various commit styles (e.g., Conventional Commits, Gitmoji).</li>
-</ul>
-</li>
-<li><p><strong>Context-Aware Analysis:</strong></p>
-<ul>
-<li>Understands the context of your code changes for accurate message generation.</li>
-<li>Incorporates relevant code snippets and file names for clarity.</li>
-</ul>
-</li>
-<li><p><strong>Customizable Templates:</strong></p>
-<ul>
-<li>Customize commit message templates to fit your team&#39;s standards.</li>
-<li>Easily toggle between different templates as needed.</li>
-</ul>
-</li>
-<li><p><strong>Integration with Git:</strong></p>
-<ul>
-<li>Seamless integration with Git and popular VCS tools.</li>
-<li>Compatible with GitHub, GitLab, Bitbucket, and more.</li>
-</ul>
-</li>
-<li><p><strong>Interactive Suggestions:</strong></p>
-<ul>
-<li>Provides multiple commit message suggestions for you to choose from.</li>
-<li>Edit and refine suggested messages before committing.</li>
-</ul>
-</li>
-<li><p><strong>Language Support:</strong></p>
-<ul>
-<li>Supports multiple programming languages and frameworks.</li>
-<li>Continually updated to recognize new languages and libraries.</li>
-</ul>
-</li>
-</ol>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li><strong>Increased Productivity:</strong> Save time by automating the commit message writing process.</li>
-<li><strong>Consistency:</strong> Ensure commit messages are uniform and adhere to your project&#39;s guidelines.</li>
-<li><strong>Improved Collaboration:</strong> Facilitate better collaboration and understanding among team members with clear and descriptive commit messages.</li>
-<li><strong>Enhanced Workflow:</strong> Smooth integration with your existing development tools and workflows.</li>
-</ul>
-<p><strong>Installation:</strong></p>
-<ol>
-<li>Navigate to the JetBrains Marketplace.</li>
-<li>Search for &quot;Ollama Commit Summarizer.&quot;</li>
-<li>Click &quot;Install&quot; and follow the prompts to add the plugin to your IDE.</li>
-<li>Configure the plugin settings to match your preferences and start generating commit messages instantly.</li>
-</ol>
-<p><strong>Requirements:</strong></p>
-<ul>
-<li>Compatible with IntelliJ IDEA, PyCharm, WebStorm, PhpStorm, RubyMine, and other JetBrains IDEs.</li>
-<li>Requires a valid Git installation and configured repository.</li>
-</ul>
-<p><strong>Support and Documentation:</strong>
-For detailed documentation, troubleshooting, and support, visit <a href="https://itishermann.me">itishermann.me</a> or contact the developer at <a href="mailto:dev@itishermann.me">dev@itishermann.me</a>.</p>
-<p>Enhance your development process with the Ollama Commit Summarizer Plugin and experience the future of automated commit messaging!</p>
-]]></description>
+
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">

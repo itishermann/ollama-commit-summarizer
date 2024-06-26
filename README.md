@@ -3,7 +3,7 @@
 ![Build](https://github.com/itishermann/ollama-commit-summarizer/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
-
+<!-- Plugin description -->
 The Ollama Commit Summarizer Plugin enhances your development workflow by automatically generating meaningful and context-aware commit messages. Powered by Ollama's advanced language model, this plugin analyzes your code changes and provides precise, human-readable commit messages that save time and ensure consistency across your projects.
 
 ## Features
@@ -51,7 +51,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 Enhance your development process with the Ollama Commit Summarizer Plugin and experience the future of automated commit messaging!
-
+<!-- Plugin description end -->
 ---
 Plugin based on the [IntelliJ Platform Plugin Template][template].
 
