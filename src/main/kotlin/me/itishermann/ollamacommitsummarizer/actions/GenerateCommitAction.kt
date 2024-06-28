@@ -3,7 +3,6 @@ package me.itishermann.ollamacommitsummarizer.actions
 import com.github.difflib.DiffUtils
 import com.github.difflib.UnifiedDiffUtils
 import com.github.difflib.patch.Patch
-import com.github.weisj.jsvg.e
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
 import com.intellij.notification.Notifications
@@ -15,6 +14,7 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.vcs.CommitMessageI
 import com.intellij.openapi.vcs.VcsDataKeys
 import com.intellij.openapi.vcs.VcsException
@@ -27,8 +27,9 @@ import me.itishermann.ollamacommitsummarizer.exceptions.NoChangeToCommitExceptio
 import me.itishermann.ollamacommitsummarizer.services.OllamaService
 import me.itishermann.ollamacommitsummarizer.settings.OllamaSettingsState
 import org.jetbrains.annotations.NotNull
+import git4idea.repo.GitRepository
+import git4idea.repo.GitRepositoryManager
 import java.util.*
-
 
 class GenerateCommitAction: AnAction(), DumbAware {
     private var processing: Boolean = false
@@ -56,8 +57,9 @@ class GenerateCommitAction: AnAction(), DumbAware {
                 ?: return
         val includedChanges = abstractCommitWorkflowHandler.ui.getIncludedChanges()
         val baseDir = project.basePath
+        val currentBranch = getCurrentBranchName(project)
         try {
-            val prompt = buildPrompt(includedChanges, baseDir!!)
+            val prompt = buildPrompt(includedChanges, baseDir!!, currentBranch!!)
             generateCommitMessage(prompt, commitPanel, indicator)
         } catch (e: NoChangeToCommitException) {
             processing = false
@@ -109,7 +111,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         }
     }
 
-    private fun buildPrompt(includedChanges: List<Change>, baseDir: String): String {
+    private fun buildPrompt(includedChanges: List<Change>, baseDir: String, branchName: String): String {
         val totalUnifiedDiffs: MutableList<String> = ArrayList()
         if(includedChanges.isEmpty()) {
             processing = false
@@ -139,6 +141,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         var prompt = OllamaSettingsState.instance.state.prompt ?: throw IllegalStateException("Prompt is null")
         prompt = prompt.replace("{{gitDiff}}", java.lang.String.join("\n", totalUnifiedDiffs))
         prompt = prompt.replace("{{fileCount}}", includedChanges.size.toString())
+        prompt = prompt.replace("{{branchName}}", branchName)
         return prompt
     }
 
@@ -151,5 +154,20 @@ class GenerateCommitAction: AnAction(), DumbAware {
             return data
         }
         return VcsDataKeys.COMMIT_MESSAGE_CONTROL.getData(e.dataContext)
+    }
+
+    fun getCurrentBranchName(project: Project): String? {
+        // Get the GitRepositoryManager for the project
+        val repositoryManager = GitRepositoryManager.getInstance(project)
+        // Get the list of repositories in the project
+        val repositories = repositoryManager.repositories
+        // If there are repositories available, get the current branch of the first repository
+        return if (repositories.isNotEmpty()) {
+            // TODO: Handle multiple repositoriess
+            val repository: GitRepository = repositories[0]
+            repository.currentBranch?.name
+        } else {
+            null
+        }
     }
 }
