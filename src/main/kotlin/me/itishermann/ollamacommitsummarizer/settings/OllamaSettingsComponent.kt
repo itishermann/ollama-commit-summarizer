@@ -51,7 +51,7 @@ class OllamaSettingsComponent {
             <ul>
                 <li>{{gitDiff}}: The git diff of the changes</li>
                 <li>{{fileCount}}: The number of files changed</li>
-                <li>{{branchName}}: The name of the current branch</li>
+                <li>{{branchName}}: The name of the current branch, can be empty if there is no git branch</li>
             </ul>
         """.trimIndent())
             .createPanel()
