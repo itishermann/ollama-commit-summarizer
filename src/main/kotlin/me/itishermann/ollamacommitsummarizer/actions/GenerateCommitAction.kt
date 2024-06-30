@@ -59,7 +59,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         val baseDir = project.basePath
         val currentBranch = getCurrentBranchName(project)
         try {
-            val prompt = buildPrompt(includedChanges, baseDir!!, currentBranch!!)
+            val prompt = buildPrompt(includedChanges, baseDir, currentBranch)
             generateCommitMessage(prompt, commitPanel, indicator)
         } catch (e: NoChangeToCommitException) {
             processing = false
@@ -111,7 +111,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         }
     }
 
-    private fun buildPrompt(includedChanges: List<Change>, baseDir: String, branchName: String): String {
+    private fun buildPrompt(includedChanges: List<Change>, baseDir: String?, branchName: String?): String {
         val totalUnifiedDiffs: MutableList<String> = ArrayList()
         if(includedChanges.isEmpty()) {
             processing = false
@@ -133,7 +133,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
             val revised = Arrays.stream(afterContent!!.split("\n".toRegex()).dropLastWhile { it.isEmpty() }
                 .toTypedArray()).toList()
             val patch: Patch<String> = DiffUtils.diff(original, revised)
-            val relativePath = change.virtualFile!!.path.replace(baseDir, "")
+            val relativePath = change.virtualFile!!.path.replace(baseDir?:"", "")
             val unifiedDiff: List<String> =
                 UnifiedDiffUtils.generateUnifiedDiff(relativePath, relativePath, original, patch, 3)
             totalUnifiedDiffs.addAll(unifiedDiff)
@@ -141,7 +141,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
         var prompt = OllamaSettingsState.instance.state.prompt ?: throw IllegalStateException("Prompt is null")
         prompt = prompt.replace("{{gitDiff}}", java.lang.String.join("\n", totalUnifiedDiffs))
         prompt = prompt.replace("{{fileCount}}", includedChanges.size.toString())
-        prompt = prompt.replace("{{branchName}}", branchName)
+        prompt = prompt.replace("{{branchName}}", branchName?:"")
         return prompt
     }
 
@@ -156,14 +156,14 @@ class GenerateCommitAction: AnAction(), DumbAware {
         return VcsDataKeys.COMMIT_MESSAGE_CONTROL.getData(e.dataContext)
     }
 
-    fun getCurrentBranchName(project: Project): String? {
+    private fun getCurrentBranchName(project: Project): String? {
         // Get the GitRepositoryManager for the project
         val repositoryManager = GitRepositoryManager.getInstance(project)
         // Get the list of repositories in the project
         val repositories = repositoryManager.repositories
         // If there are repositories available, get the current branch of the first repository
         return if (repositories.isNotEmpty()) {
-            // TODO: Handle multiple repositoriess
+            // TODO: Handle multiple repositories
             val repository: GitRepository = repositories[0]
             repository.currentBranch?.name
         } else {
