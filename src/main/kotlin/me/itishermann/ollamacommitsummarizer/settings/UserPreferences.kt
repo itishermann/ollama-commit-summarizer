@@ -15,6 +15,7 @@ internal class UserPreferences() : PersistentStateComponent<UserPreferences.Stat
         var shouldShowWelcomeNotification: Boolean = true
         var shouldShowOllamaConfigurationNotification: Boolean = true
         var shouldShowStarNotification: Boolean = true
+        var shouldShowCommitMessageSuccessGeneration: Boolean = true
     }
 
     private var myState: State = State()

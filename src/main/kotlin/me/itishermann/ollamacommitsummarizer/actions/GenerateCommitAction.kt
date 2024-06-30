@@ -3,9 +3,6 @@ package me.itishermann.ollamacommitsummarizer.actions
 import com.github.difflib.DiffUtils
 import com.github.difflib.UnifiedDiffUtils
 import com.github.difflib.patch.Patch
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationType
-import com.intellij.notification.Notifications
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
@@ -29,6 +26,9 @@ import me.itishermann.ollamacommitsummarizer.settings.OllamaSettingsState
 import org.jetbrains.annotations.NotNull
 import git4idea.repo.GitRepository
 import git4idea.repo.GitRepositoryManager
+import me.itishermann.ollamacommitsummarizer.notifications.Notification
+import me.itishermann.ollamacommitsummarizer.notifications.sendNotification
+import me.itishermann.ollamacommitsummarizer.settings.UserPreferences
 import java.util.*
 
 class GenerateCommitAction: AnAction(), DumbAware {
@@ -63,13 +63,7 @@ class GenerateCommitAction: AnAction(), DumbAware {
             generateCommitMessage(prompt, commitPanel, indicator)
         } catch (e: NoChangeToCommitException) {
             processing = false
-            Notifications.Bus.notify(
-                Notification(
-                    "me.itishermann.ollamacommitsummarizer.default",
-                    "No changes to commit",
-                    "There are no changes to commit, please include some changes to commit", NotificationType.INFORMATION
-                )
-            )
+            sendNotification(Notification.emptyDiff())
         }
     }
 
@@ -90,22 +84,11 @@ class GenerateCommitAction: AnAction(), DumbAware {
             indicator.text = "Inferring"
             client.generate(modelName, prompt, options, streamHandler)
             processing = false
-            Notifications.Bus.notify(
-                Notification(
-                    "me.itishermann.ollamacommitsummarizer.default",
-                    "Commit message generated",
-                    "The commit message has been generated successfully", NotificationType.INFORMATION
-                )
-            )
+            val canShowNotification = UserPreferences.instance.state.shouldShowCommitMessageSuccessGeneration
+            if(canShowNotification) sendNotification(Notification.successfulGeneration())
         } catch (e: Exception) {
             e.printStackTrace()
-            Notifications.Bus.notify(
-                Notification(
-                    "me.itishermann.ollamacommitsummarizer.default",
-                    "Ollama API error",
-                    "An error occured while generating your commit message: ${e.localizedMessage ?: e.message}", NotificationType.ERROR
-                )
-            )
+            sendNotification(Notification.unsuccessfulRequest(e.localizedMessage ?: e.message))
         } finally {
             processing = false
         }
