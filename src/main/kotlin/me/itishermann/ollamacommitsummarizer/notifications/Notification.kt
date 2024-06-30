@@ -5,6 +5,7 @@ import com.intellij.openapi.project.Project
 import me.itishermann.ollamacommitsummarizer.UiTextBundle.uiTextBundleProperty
 import me.itishermann.ollamacommitsummarizer.UiTextBundle.openGithubRepository
 import me.itishermann.ollamacommitsummarizer.UiTextBundle.openPluginSettings
+import me.itishermann.ollamacommitsummarizer.settings.UserPreferences
 
 import java.net.URI
 
@@ -23,6 +24,7 @@ data class Notification(
         private val DEFAULT_TITLE = uiTextBundleProperty("notifications.title")
 
         fun welcome(project: Project?) = Notification(
+            title = "Thanks for installing Ollama Commit Summarizer!",
             message = uiTextBundleProperty("notifications.welcome"),
             type = Type.EPHEMERAL,
             actions = setOf(
@@ -47,8 +49,17 @@ data class Notification(
 
         fun promptTooLarge() = Notification(DEFAULT_TITLE, message = uiTextBundleProperty("notifications.prompt-too-large"))
 
-        fun unsuccessfulRequest(bundleProperty: String) = Notification(
-            message = uiTextBundleProperty("notifications.unsuccessful-request", bundleProperty)
+        fun unsuccessfulRequest(errorMessage: String?) = Notification(
+            message = uiTextBundleProperty("notifications.unsuccessful-request", errorMessage?:"")
+        )
+
+        fun successfulGeneration() = Notification(
+            message = uiTextBundleProperty("notifications.successful-generation"),
+            actions = setOf(
+                NotificationAction.doNotAskAgain {
+                    UserPreferences.instance.state.shouldShowCommitMessageSuccessGeneration = false
+                }
+            )
         )
 
         fun noCommitMessage(): Notification = Notification(message = uiTextBundleProperty("notifications.no-commit-message"))
