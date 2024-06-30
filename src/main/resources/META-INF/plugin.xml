@@ -7,6 +7,8 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>Git4Idea</depends>
 
+    <resource-bundle>properties.ui-text</resource-bundle>
+
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable
                 parentId="tools"
@@ -17,10 +19,23 @@
                 serviceImplementation="me.itishermann.ollamacommitsummarizer.settings.OllamaSettingsState"
         />
         <applicationService
+                serviceImplementation="me.itishermann.ollamacommitsummarizer.settings.UserPreferences"
+        />
+        <applicationService
                 serviceInterface="me.itishermann.ollamacommitsummarizer.interfaces.AiServiceInterface"
                 serviceImplementation="me.itishermann.ollamacommitsummarizer.services.OllamaService"
         />
-        <notificationGroup id="me.itishermann.ollamacommitsummarizer.default" displayType="BALLOON"/>
+        <notificationGroup
+                id="me.itishermann.ollamacommitsummarizer.default"
+                displayType="BALLOON"
+                key="notification.group.default.name"
+        />
+        <notificationGroup
+                id="me.itishermann.ollamacommitsummarizer.important"
+                displayType="STICKY_BALLOON"
+                key="notification.group.important.name"
+        />
+        <postStartupActivity implementation="me.itishermann.ollamacommitsummarizer.listeners.PostStartupActivity" />
     </extensions>
 
     <actions>
