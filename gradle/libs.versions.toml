@@ -4,7 +4,7 @@ ollama4j = "1.0.73"
 javaDiffUtils = "4.12"
 
 # plugins
-kotlin = "2.0.0"
+kotlin = "2.0.10"
 changelog = "2.2.0"
 gradleIntelliJPlugin = "1.17.4"
 qodana = "2024.1.5"
